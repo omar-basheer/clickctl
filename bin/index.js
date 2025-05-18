@@ -2,16 +2,38 @@
 
 const { Command } = require("commander");
 const chalk = require("chalk");
+const auth = require("../src/commands/auth");
+const teams = require("../src/commands/teams");
+const spaces = require("../src/commands/spaces");
+const folders = require("../src/commands/folder");
 const lists = require("../src/commands/list");
 const tasks = require("../src/commands/task");
-const folders = require("../src/commands/folder");
 
 const program = new Command();
 
 program
     .name("clickctl")
-    .description("CLI tool for interacting with ClickUp tasks")
+    .description("A CLI tool for interacting with ClickUp tasks 🤩")
     .version("1.0.0");
+
+program
+    .command("auth")
+    .description("Authenticate with ClickUp via OAuth")
+    .option("-c, --client-id <id>", "ClickUp client ID")
+    .option("-s, --client-secret <secret>", "ClickUp client secret")
+    .action(auth.authenticate)
+
+program
+    .command("teams")
+    .description("See teams in your ClickUp workspace")
+    .option("-w, --workspace-id <id>", "ClickUp workspace ID")
+    .action(teams.getTeams)
+
+program
+    .command("spaces")
+    .description("See spaces in a specific team")
+    .option("-t, --team-id <id>", "ClickUp team ID")
+    .action(spaces.getSpaces);
 
 program
     .command("folders")

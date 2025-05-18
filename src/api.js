@@ -1,10 +1,13 @@
-require("dotenv").config();
 const axios = require("axios");
+const {loadToken} = require("./tokenStore");
+
+const token = loadToken();
+// console.log("Token loaded:", token);
 
 const api = axios.create({
     baseURL: "https://api.clickup.com/api/v2/",
     headers: {
-        Authorization: process.env.CLICKUP_API_TOKEN,
+        Authorization: token ? token: "",
     },
 });
 

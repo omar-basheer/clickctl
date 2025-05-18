@@ -6,7 +6,7 @@ const {formatDate} = require("../utils");
 // View tasks within a list
 async function getTasks({listId}){
     if (!listId) {
-        console.error(chalk.red("❌ Missing required --list-id option"));
+        console.error(chalk.red("❗️ Missing required --list-id option"));
         return;
     }
 
@@ -49,16 +49,16 @@ async function getTasks({listId}){
         });
     }
     catch (err) {
-        console.error(chalk.red("❌ Failed to fetch tasks."));
+        console.error(chalk.red("❗️ Failed to fetch tasks."));
 
         if (err.response) {
             const { status, data } = err.response;
 
             if (status === 401) {
-                console.error(chalk.red("⚠️  Unauthorized. Make sure the list ID is correct and belongs to your a list in your workspace."));
+                console.error(chalk.red("❗️  Unauthorized. Make sure the list ID is correct and belongs to your a list in your workspace."));
                 console.error(chalk.yellow("💡 Tip: Did you accidentally pass a folder ID instead of a list ID?"));
             } else if (status === 404) {
-                console.error(chalk.red("❌ Not found. The list ID might be incorrect."));
+                console.error(chalk.red("❗️ Not found. The list ID might be incorrect."));
             } else {
                 console.error("Status:", status);
                 console.error("Message:", data.err || err.response.statusText);
@@ -72,7 +72,7 @@ async function getTasks({listId}){
 // Update properties of a task
 async function updateTask({taskId, status, priority, startDate, dueDate, name}){
     if (!taskId){
-        console.error(chalk.red("❌ Missing required --task-id option"));
+        console.error(chalk.red("❗️ Missing required --task-id option"));
     }
 
     const updatePayload = {}
@@ -91,16 +91,16 @@ async function updateTask({taskId, status, priority, startDate, dueDate, name}){
         console.log(chalk.green("✅ Task updated successfully!"));
     }
     catch (err) {
-        console.error(chalk.red("❌ Failed to update task."));
+        console.error(chalk.red("❗️ Failed to update task."));
 
         if (err.response) {
             const { status, data } = err.response;
 
             if (status === 401) {
-                console.error(chalk.red("⚠️  Unauthorized. Make sure the task ID is correct and belongs to a folder in your workspace."));
+                console.error(chalk.red("❗️  Unauthorized. Make sure the task ID is correct and belongs to a folder in your workspace."));
                 // console.error(chalk.yellow("💡 Tip: Did you accidentally pass a workspace ID instead of a folder ID?"));
             } else if (status === 404) {
-                console.error(chalk.red("❌ Not found. The task ID might be incorrect."));
+                console.error(chalk.red("❗️ Not found. The task ID might be incorrect."));
             } else {
                 console.error("Status:", status);
                 console.error("Message:", data.err || err.response.statusText);

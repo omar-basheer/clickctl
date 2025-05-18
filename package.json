@@ -1,22 +1,31 @@
 {
-  "name": "taskup",
+  "name": "clickctl",
   "version": "1.0.0",
+  "description": "A CLI tool for interacting with ClickUp API",
   "main": "index.js",
   "bin": {
-    "taskup": "bin/index.js"
+    "clickctl": "bin/index.js"
   },
   "scripts": {
+    "start": "node ./bin/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
+  "keywords": [
+    "clickup",
+    "cli",
+    "productivity",
+    "api",
+    "tooling"
+  ],
+  "author": "Omar Basheer",
+  "license": "MIT",
   "dependencies": {
     "axios": "^1.9.0",
     "chalk": "^4.1.2",
     "commander": "^13.1.0",
     "dotenv": "^16.5.0",
-    "inquirer": "^12.6.1"
+    "express": "^5.1.0",
+    "inquirer": "^12.6.1",
+    "open": "^10.1.2"
   }
 }

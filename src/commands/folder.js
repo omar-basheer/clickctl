@@ -4,7 +4,7 @@ const api = require("../api");
 // View folders in a workspace
 async function getFolders({spaceId}){
     if (!spaceId){
-        console.error(chalk.red("❌ Missing required --space-id option"));
+        console.error(chalk.red("❗ Missing required --space-id option"));
         return;
     }
 
@@ -28,16 +28,16 @@ async function getFolders({spaceId}){
     }
 
     catch (err){
-        console.error(chalk.red("❌ Failed to fetch folders."));
+        console.error(chalk.red("❗️ Failed to fetch folders."));
 
         if (err.response){
             const {status, data} = err.response;
 
             if (status === 401){
-                console.error(chalk.red("⚠️  Unauthorized. Make sure the space ID is correct and belongs to your workspace."));
+                console.error(chalk.red("❗️ Unauthorized. Make sure the space ID is correct and belongs to your workspace."));
                 console.error(chalk.yellow("💡 Tip: Did you accidentally pass a workspace ID instead of a space ID?"));
             } else if (status === 404){
-                console.error(chalk.red("❌ Not found. The space ID might be incorrect."));
+                console.error(chalk.red("❗ Not found. The space ID might be incorrect."));
             } else {
                 console.error("Status:", status);
                 console.error("Message:", data.err || err.response.statusText);

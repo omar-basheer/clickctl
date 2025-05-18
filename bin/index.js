@@ -2,6 +2,7 @@
 
 const { Command } = require("commander");
 const chalk = require("chalk");
+const auth = require("../src/commands/auth");
 const lists = require("../src/commands/list");
 const tasks = require("../src/commands/task");
 const folders = require("../src/commands/folder");
@@ -12,6 +13,11 @@ program
     .name("clickctl")
     .description("CLI tool for interacting with ClickUp tasks")
     .version("1.0.0");
+
+program
+    .command("auth")
+    .description("Authenticate with ClickUp via OAuth")
+    .action(auth.authenticate)
 
 program
     .command("folders")

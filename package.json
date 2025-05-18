@@ -1,9 +1,9 @@
 {
-  "name": "taskup",
+  "name": "clickctl",
   "version": "1.0.0",
   "main": "index.js",
   "bin": {
-    "taskup": "bin/index.js"
+    "clickctl": "bin/index.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -17,6 +17,8 @@
     "chalk": "^4.1.2",
     "commander": "^13.1.0",
     "dotenv": "^16.5.0",
-    "inquirer": "^12.6.1"
+    "express": "^5.1.0",
+    "inquirer": "^12.6.1",
+    "open": "^10.1.2"
   }
 }

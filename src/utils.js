@@ -1,5 +1,7 @@
 const chalk = require("chalk");
+const fs = require("fs");
 
+// Format date from ClickUp API
 const formatDate = (dateStr) => {
     return dateStr ? new Date(Number(dateStr)).toLocaleDateString() : null;
 };
@@ -9,10 +11,10 @@ function shutdown(server, code = 0) {
     // console.log(chalk.gray("🛑 Shutting down server..."));
     server.close((err) => {
         if (err) {
-            console.error(chalk.red("❌ Error closing server:"), err);
+            console.error(chalk.red("❗ Error closing server:"), err);
             return process.exit(1);
         }
-        console.log(chalk.gray("✅ Server closed. Exiting..."));
+        // console.log(chalk.gray("✅ Server closed. Exiting..."));
         process.exit(code);
     });
 
@@ -21,6 +23,24 @@ function shutdown(server, code = 0) {
         // console.warn(chalk.yellow("⚠️  Force exiting..."));
         process.exit(code);
     }, 2000);
+}
+
+// Open browser for authentication
+const openBrowser = async (url) => {
+    try{
+        const open = (await import('open')).default;
+        await open(url);
+    }
+    catch (err){
+        console.error(chalk.red("❗ Failed to open browser:", err.message));
+    }
+}
+
+// Save environment variables to .env file
+function saveEnvVars(envPath, clientId, clientSecret){
+    const envContent = `CLICKUP_CLIENT_ID=${clientId}\nCLICKUP_CLIENT_SECRET=${clientSecret}`;
+    fs.writeFileSync(envPath, envContent, { encoding: "utf-8" });
+    console.log(chalk.green(`✅ Credentials saved to ${envPath}`));
 }
 
 // const connections = new Set();
@@ -64,4 +84,6 @@ function shutdown(server, code = 0) {
 module.exports = {
     formatDate,
     shutdown,
+    openBrowser,
+    saveEnvVars,
 }

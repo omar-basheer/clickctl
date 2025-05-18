@@ -4,7 +4,7 @@ const chalk = require("chalk");
 // View the lists within a folder
 async function getLists({ folderId }) {
     if (!folderId) {
-        console.error(chalk.red("❌ Missing required --folder-id option"));
+        console.error(chalk.red("❗ Missing required --folder-id option"));
         return;
     }
 
@@ -27,16 +27,16 @@ async function getLists({ folderId }) {
             );
         });
     } catch (err) {
-        console.error(chalk.red("❌ Failed to fetch lists."));
+        console.error(chalk.red("❗ Failed to fetch lists."));
 
         if (err.response) {
             const { status, data } = err.response;
 
             if (status === 401) {
-                console.error(chalk.red("⚠️ Unauthorized. Make sure the folder ID is correct and belongs to a folder in your workspace."));
+                console.error(chalk.red("❗️ Unauthorized. Make sure the folder ID is correct and belongs to a folder in your workspace."));
                 console.error(chalk.yellow("💡 Tip: Did you accidentally pass a workspace ID instead of a folder ID?"));
             } else if (status === 404) {
-                console.error(chalk.red("❌ Not found. The folder ID might be incorrect."));
+                console.error(chalk.red("❗ Not found. The folder ID might be incorrect."));
             } else {
                 console.error("Status:", status);
                 console.error("Message:", data.err || err.response.statusText);

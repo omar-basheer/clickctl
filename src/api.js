@@ -1,7 +1,8 @@
 const axios = require("axios");
 const {loadToken} = require("./tokenStore");
 
-const token = loadToken()?.access_token;
+const token = loadToken();
+// console.log("Token loaded:", token);
 
 const api = axios.create({
     baseURL: "https://api.clickup.com/api/v2/",

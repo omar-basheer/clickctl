@@ -1,6 +1,6 @@
 {
   "name": "clickctl",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A CLI tool for interacting with ClickUp API",
   "main": "index.js",
   "bin": {
@@ -20,12 +20,13 @@
   "author": "Omar Basheer",
   "license": "MIT",
   "dependencies": {
+    "@inquirer/prompts": "^7.5.3",
     "axios": "^1.9.0",
     "chalk": "^4.1.2",
     "commander": "^13.1.0",
     "dotenv": "^16.5.0",
     "express": "^5.1.0",
-    "inquirer": "^12.6.1",
+    "inquirer": "^8.2.6",
     "open": "^10.1.2"
   }
 }

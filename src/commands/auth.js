@@ -5,7 +5,7 @@ const os = require("os");
 const path = require("path");
 const fs = require("fs");
 const tokenStore = require("../tokenStore");
-const utils = require("../utils");
+const utils = require("../utils/helpers");
 require("dotenv").config();
 
 const ENV_PATH = path.join(os.homedir(), ".clickctl.env");

@@ -1,5 +1,5 @@
 const axios = require("axios");
-const {loadToken} = require("./tokenStore");
+const {loadToken} = require("../tokenStore");
 
 const token = loadToken();
 // console.log("Token loaded:", token);

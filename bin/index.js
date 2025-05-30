@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+const inquirer = require('inquirer');
 const {Command} = require("commander");
 const chalk = require("chalk");
 const auth = require("../src/commands/auth");
@@ -14,7 +15,11 @@ const program = new Command();
 // Default command
 program
     .name("clickctl")
-    .description("A CLI tool for interacting with ClickUp tasks 🤩\n\nUse this tool to authenticate, browse teams/spaces/folders/lists, and manage tasks directly from your terminal.\n\nStart with `clickctl auth` to link your account.")
+    .description(`A CLI tool for interacting with ClickUp tasks 🤩
+
+Use this tool to authenticate, browse teams/spaces/folders/lists, and manage tasks directly from your terminal.
+
+Start with \`clickctl auth\` to link your account.`)
     .version("1.0.0");
 
 
@@ -30,8 +35,7 @@ program
         Example:
           clickctl auth -c your-client-id -s your-client-secret
           
-          `
-    )
+          `)
     .option("-c, --client-id <id>", "ClickUp client ID")
     .option("-s, --client-secret <secret>", "ClickUp client secret")
     .action(auth.authenticate)
@@ -46,8 +50,8 @@ program
             clickctl teams
             
     `)
-    .option("-w, --workspace-id <id>", "ClickUp workspace ID")
-    .action(teams.getTeams)
+    // .option("-w, --workspace-id <id>", "ClickUp workspace ID")
+    .action(teams.getTeams);
 
 
 // Spaces command
@@ -101,6 +105,43 @@ program
 // Tasks command
 program
     .command("tasks")
+    .description(`Browse tasks by interactively selecting a team, space, folder, and list.
+
+    This command helps you navigate your ClickUp hierarchy to view tasks in a list.
+
+    You'll be prompted step-by-step to select:
+      • A team
+      • A space within the team
+      • A folder (if any) or lists directly under the space
+      • A list containing tasks
+
+    Example:
+      clickctl tasks
+  `)
+    .action(tasks.browseTasks);
+
+
+// Update tasks command
+program
+    .command("tasks:update <status>")
+    .description(`Update the status of multiple tasks by browsing your workspace.
+
+    You'll be prompted to:
+      • Select a team
+      • Select a space
+      • Select a folder or list
+      • Select one or more tasks
+
+    All selected tasks will be updated to the provided status.
+
+    Example:
+      clickctl tasks update "in progress"
+  `)
+    .action(tasks.updateTasks);
+
+// Tasks command
+program
+    .command("get:tasks")
     .description(`See tasks in a specific list.
 
         You need a list ID, which you can get by running:

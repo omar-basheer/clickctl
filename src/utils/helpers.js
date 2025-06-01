@@ -1,5 +1,6 @@
 const chalk = require("chalk");
 const fs = require("fs");
+const logger = require("./logger");
 
 // Format date from ClickUp API
 const formatDate = (dateStr) => {
@@ -11,7 +12,7 @@ function shutdown(server, code = 0) {
     // console.log(chalk.gray("🛑 Shutting down server..."));
     server.close((err) => {
         if (err) {
-            console.error(chalk.red("❗ Error closing server:"), err);
+            logger.error(`Error closing server: ${err.message}`);
             return process.exit(1);
         }
         // console.log(chalk.gray("✅ Server closed. Exiting..."));
@@ -32,7 +33,7 @@ const openBrowser = async (url) => {
         await open(url);
     }
     catch (err){
-        console.error(chalk.red("❗ Failed to open browser:", err.message));
+        logger.error(`Failed to open browser: ${err.message}`);
     }
 }
 
@@ -40,7 +41,49 @@ const openBrowser = async (url) => {
 function saveEnvVars(envPath, clientId, clientSecret){
     const envContent = `CLICKUP_CLIENT_ID=${clientId}\nCLICKUP_CLIENT_SECRET=${clientSecret}`;
     fs.writeFileSync(envPath, envContent, { encoding: "utf-8" });
-    console.log(chalk.green(`✅ Credentials saved to ${envPath}`));
+    logger.success(`Credentials saved to ${envPath}.`);
+}
+
+// Sort fetched tasks
+function sortedTasks(tasks) {
+    if (!Array.isArray(tasks)) {
+        logger.error("Invalid tasks data: expected an array");
+        return [];
+    }
+
+    return tasks.sort((a, b) => {
+        const statusA = a.status?.status || '';
+        const statusB = b.status?.status || '';
+        if (statusA !== statusB) return statusA.localeCompare(statusB);
+
+        const dateA = Number(a.due_date || 0);
+        const dateB = Number(b.due_date || 0);
+        if (dateA !== dateB) return dateA - dateB;
+
+        return a.name.localeCompare(b.name);
+    });
+}
+
+// Get status color function
+function getStatusColor(hex) {
+    try {
+        return chalk.hex(hex);
+    } catch {
+        return (txt) => txt; // fallback: return text unstyled
+    }
+}
+
+// Group tasks by status
+function groupTasksByStatus(tasks) {
+    const groups = {};
+
+    for (const task of tasks) {
+        const status = task.status?.status?.toUpperCase() || "NO STATUS";
+        if (!groups[status]) groups[status] = [];
+        groups[status].push(task);
+    }
+
+    return groups;
 }
 
 // const connections = new Set();
@@ -86,4 +129,7 @@ module.exports = {
     shutdown,
     openBrowser,
     saveEnvVars,
+    sortedTasks,
+    getStatusColor,
+    groupTasksByStatus,
 }

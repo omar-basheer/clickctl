@@ -70,7 +70,8 @@ You’ll be guided through your ClickUp hierarchy — team → space → folder 
 
 ## 📌 Version
 - v1.0.0: Initial release with basic functionality for listing folders, lists, and tasks, and updating task properties.
-- v1.1.0: Added interactive browsing of tasks, improved UX with color-coded statuses, and enhanced task property updates.
+- v1.1.0: Added interactive browsing of tasks, color-coded status labels, and command help improvements.
+- v1.1.1: Refined task browsing with sorting, status color UX, and fixed date formatting in updates.
 
 
 ## 📬 Contributions

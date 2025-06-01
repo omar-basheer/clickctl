@@ -120,7 +120,15 @@ program
     .option("-f, --folder-id <id>", "ClickUp folder ID")
     .action(lists.getLists);
 
-
+program.addHelpText('afterAll', `
+Commands:
+  auth        Authenticate with ClickUp
+  browse      Interactively browse and manage tasks
+  teams       View teams in your workspace
+  spaces      View spaces within a team
+  folders     View folders within a space
+  lists       View lists within a folder
+`);
 // Update tasks command
 // program
 //     .command("tasks:update <status>")

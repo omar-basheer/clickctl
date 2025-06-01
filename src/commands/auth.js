@@ -6,6 +6,7 @@ const path = require("path");
 const fs = require("fs");
 const tokenStore = require("../tokenStore");
 const utils = require("../utils/helpers");
+const logger = require("../utils/logger");
 require("dotenv").config();
 
 const ENV_PATH = path.join(os.homedir(), ".clickctl.env");
@@ -26,8 +27,8 @@ async function authenticate(options = {}) {
     }
     else {
         // Missing credentials
-        console.error(chalk.red("❗ Missing credentials"));
-        console.error(
+        logger.error("Missing credentials")
+        logger.error(
             chalk.yellow("💡 Run the command with:\n") +
             chalk.cyan("clickctl auth --client-id <your-client-id> --client-secret <your-client-secret>")
         );
@@ -42,7 +43,7 @@ async function authenticate(options = {}) {
 
     const server = app.listen(PORT, async () => {
         const authUrl = `https://app.clickup.com/api?client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}`;
-        console.log(chalk.blue(`\n🌍 Opening browser for authentication...\n`));
+        logger.info("🌍 Opening browser for ClickUp authentication...");
         await utils.openBrowser(authUrl);
     });
 
@@ -66,11 +67,11 @@ async function authenticate(options = {}) {
             tokenStore.saveToken(token);
 
             res.send("✅ Authentication successful! You can close this window.");
-            console.log(chalk.green("✅ Token saved successfully!"));
+            logger.success("Token saved successfully!")
             utils.shutdown(server, 0)
         }
         catch (err) {
-            console.error(chalk.red("❗ Failed to authenticate:", err.response?.data || err.message));
+            logger.error(`Failed to authenticate: ${err.response?.data || err.message}`)
             res.status(500).send("❗ Authentication failed");
             utils.shutdown(server, 1)
         }

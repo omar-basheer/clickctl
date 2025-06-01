@@ -1,13 +1,13 @@
 # clickctl
 
-A simple CLI tool for interacting with [ClickUp](https://clickup.com) tasks via the ClickUp API.
+A simple CLI tool for interacting with [ClickUp](https://clickup.com) tasks right from the terminal. Built with devs in mind 🤓. Now you can view and update your ClickUp tasks without leaving your terminal!
+
 
 ## ✨ Features
-- View teams (workspaces) and spaces in your ClickUp account
-- View folders in a ClickUp space
-- View lists within a folder
-- View tasks in a list
-- Update task properties (status, priority, dates, name)
+- 🌱 Authenticate with ClickUp using OAuth
+- 🧭 Interactively browse teams, spaces, folders, lists, and tasks
+- 📋 View all tasks in a list, sorted and color-coded by status
+- 🛠️ Update task properties like status and dates
 
 
 ## 🚀 Installation
@@ -49,31 +49,37 @@ Before using `clickctl`, you'll need to authenticate with the ClickUp API:
     ```bash
     clickctl --help
     ```
-
+   
+## 🧪 MVP Highlights
+1. The core of clickctl is the browse command:
+   ```bash
+   clickctl browse
+   ```
+You’ll be guided through your ClickUp hierarchy — team → space → folder → list — and then shown your tasks in a clean, sortable, color-coded view.
 
 ## 🫡 Commands
-|     Command    |                     Description                    |
-|:--------------:|:--------------------------------------------------:|
-|   auth         |   Authenticate with ClickUp via OAuth              |
-|   teams        |   View your ClickUp teams (workspaces)             |
-|   spaces       |   View spaces in a specific team                   |
-|   folders      |   View folders in a specific space                 |
-|   lists        |   View lists in a specific folder                  |
-|   tasks        |   View tasks in a specific list                    |
-|   update:task  |   Update a task’s properties (status, name, etc.)  |
+| Command |                   Description                   |
+|:-------:|:-----------------------------------------------:|
+|  auth   |       Authenticate with ClickUp via OAuth       |
+| browse  | Interactively browse and manage tasks in a list |
+|  teams  |      View your ClickUp teams (workspaces)       |
+| spaces  |         View spaces in a specific team          |
+| folders |        View folders in a specific space         |
+|  lists  |         View lists in a specific folder         | 
 
 ## 📌 Version
 - v1.0.0: Initial release with basic functionality for listing folders, lists, and tasks, and updating task properties.
+- v1.1.0: Added interactive browsing of tasks, improved UX with color-coded statuses, and enhanced task property updates.
 
 
 ## 📬 Contributions
-
-Pull requests welcome! If you have ideas for enhancements (like creating tasks, archiving, etc.), feel free to open an issue or PR.
+This is an open MVP. PRs, issues, and feature suggestions are welcome! If you have ideas for enhancements (like creating tasks, archiving, etc.), feel free to open an issue or PR.
 
 
 ## 🛠 Built With
 * Node.js 
 * Commander 
 * Chalk
+* Inquirer
 
 

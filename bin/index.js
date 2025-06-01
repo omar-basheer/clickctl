@@ -41,6 +41,25 @@ program
     .action(auth.authenticate)
 
 
+// Tasks command
+program
+    .command("browse")
+    .description(`Browse tasks by interactively selecting a team, space, folder, and list.
+
+    This command helps you navigate your ClickUp hierarchy to view tasks in a list.
+
+    You'll be prompted step-by-step to select:
+      • A team
+      • A space within the team
+      • A folder (if any) or lists directly under the space
+      • A list containing tasks
+
+    Example:
+      clickctl browse
+  `)
+    .action(tasks.browseTasks);
+
+
 // Teams command
 program
     .command("teams")
@@ -102,80 +121,61 @@ program
     .action(lists.getLists);
 
 
-// Tasks command
-program
-    .command("tasks")
-    .description(`Browse tasks by interactively selecting a team, space, folder, and list.
-
-    This command helps you navigate your ClickUp hierarchy to view tasks in a list.
-
-    You'll be prompted step-by-step to select:
-      • A team
-      • A space within the team
-      • A folder (if any) or lists directly under the space
-      • A list containing tasks
-
-    Example:
-      clickctl tasks
-  `)
-    .action(tasks.browseTasks);
-
-
 // Update tasks command
-program
-    .command("tasks:update <status>")
-    .description(`Update the status of multiple tasks by browsing your workspace.
-
-    You'll be prompted to:
-      • Select a team
-      • Select a space
-      • Select a folder or list
-      • Select one or more tasks
-
-    All selected tasks will be updated to the provided status.
-
-    Example:
-      clickctl tasks update "in progress"
-  `)
-    .action(tasks.updateTasks);
+// program
+//     .command("tasks:update <status>")
+//     .description(`Update the status of multiple tasks by browsing your workspace.
+//
+//     You'll be prompted to:
+//       • Select a team
+//       • Select a space
+//       • Select a folder or list
+//       • Select one or more tasks
+//
+//     All selected tasks will be updated to the provided status.
+//
+//     Example:
+//       clickctl tasks update "in progress"
+//   `)
+//     .action(tasks.updateTasks);
 
 // Tasks command
-program
-    .command("get:tasks")
-    .description(`See tasks in a specific list.
-
-        You need a list ID, which you can get by running:
-          clickctl lists -f <folder-id>
-        
-        Example:
-          clickctl tasks -l <list-id>
-  
-    `)
-    .requiredOption("-l, --list-id <id>", "ClickUp list ID")
-    .action(tasks.getTasks);
+// program
+//     .command("get:tasks")
+//     .description(`See tasks in a specific list.
+//
+//         You need a list ID, which you can get by running:
+//           clickctl lists -f <folder-id>
+//
+//         Example:
+//           clickctl tasks -l <list-id>
+//
+//     `)
+//     .requiredOption("-l, --list-id <id>", "ClickUp list ID")
+//     .action(tasks.getTasks);
 
 
 // Update task command
-program
-    .command("update:task")
-    .description(`Update properties of a specific task in ClickUp.
-
-        You need the task ID, which you can get by running:
-          clickctl tasks -l <list-id>
-        
-        You can update status, priority, name, and dates.
-        
-        Examples:
-          clickctl update:task -i task123 -s "in progress"
-          clickctl update:task -i task123 -p high -n "Refactor login logic"
-  
-    `)
-    .requiredOption("-i, --task-id <id>", "Task ID")
-    .option("-s, --status <status>", "New status")
-    .option("-p, --priority <priority>", "New priority")
-    .option("-d, --start-date <date>", "New start date")
-    .option("-e, --due-date <date>", "New due date")
-    .option("-n, --name <name>", "New task name")
-    .action(tasks.updateTask);
+// program
+//     .command("update:task")
+//     .description(`Update properties of a specific task in ClickUp.
+//
+//         You need the task ID, which you can get by running:
+//           clickctl tasks -l <list-id>
+//
+//         You can update status, priority, name, and dates.
+//
+//         Examples:
+//           clickctl update:task -i task123 -s "in progress"
+//           clickctl update:task -i task123 -p high -n "Refactor login logic"
+//
+//     `)
+//     .requiredOption("-i, --task-id <id>", "Task ID")
+//     .option("-s, --status <status>", "New status")
+//     .option("-p, --priority <priority>", "New priority")
+//     .option("-d, --start-date <date>", "New start date")
+//     .option("-e, --due-date <date>", "New due date")
+//     .option("-n, --name <name>", "New task name")
+//     .action(tasks.updateTask);
 
 program.parse(process.argv);

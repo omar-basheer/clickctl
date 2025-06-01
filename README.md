@@ -1,4 +1,5 @@
 # clickctl
+[![GitHub](https://img.shields.io/badge/GitHub-Repo-blue?logo=github)](https://github.com/omar-basheer/clickctl)
 
 A simple CLI tool for interacting with [ClickUp](https://clickup.com) tasks right from the terminal. Built with devs in mind 🤓. Now you can view and update your ClickUp tasks without leaving your terminal!
 
